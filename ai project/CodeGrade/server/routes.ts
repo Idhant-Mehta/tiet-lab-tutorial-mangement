@@ -7,6 +7,15 @@ import { insertAssignmentSchema, insertSubmissionSchema, problemSchema } from "@
 import { generateAssignment, analyzeCode } from "./services/openai";
 
 export function registerRoutes(app: Express): Server {
+  // Health check endpoint for monitoring and Docker health checks
+  app.get("/api/health", (req, res) => {
+    res.status(200).json({ 
+      status: "ok", 
+      timestamp: new Date().toISOString(),
+      version: "1.0.0"
+    });
+  });
+
   // sets up /api/register, /api/login, /api/logout, /api/user
   setupAuth(app);
 
