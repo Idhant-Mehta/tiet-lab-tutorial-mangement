@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:lts
 
 # Set environment variables
 ENV NODE_ENV=production
@@ -11,7 +11,7 @@ WORKDIR /usr/src/app
 COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 
 # Install dependencies (including devDependencies for build)
-RUN npm ci --silent && npm cache clean --force
+RUN npm ci && npm cache clean --force
 
 # Copy source code
 COPY . .
@@ -20,11 +20,11 @@ COPY . .
 RUN npm run build
 
 # Remove dev dependencies after build
-RUN npm ci --only=production --silent && npm cache clean --force
+RUN npm ci --only=production && npm cache clean --force
 
 # Create non-root user
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S node -u 1001
+RUN groupadd -g 1001 nodejs
+RUN useradd -r -u 1001 -g nodejs node
 
 # Change ownership of the app directory
 RUN chown -R node:nodejs /usr/src/app

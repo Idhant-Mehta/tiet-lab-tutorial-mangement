@@ -6,12 +6,12 @@ import AssignmentGenerator from "@/components/assignment-generator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, Users, Send, Trophy } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Assignment } from "@shared/schema";
+import { Assignment, TeacherStats } from "@shared/schema";
 
 export default function TeacherDashboard() {
   const { user } = useAuth();
 
-  const { data: stats, isLoading: statsLoading } = useQuery({
+  const { data: stats, isLoading: statsLoading } = useQuery<TeacherStats>({
     queryKey: ["/api/stats/teacher"],
   });
 

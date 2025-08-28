@@ -350,7 +350,7 @@ Return the response as a JSON object with a "problems" array containing all gene
     const result = JSON.parse(response.choices[0].message.content!);
     return result.problems as Problem[];
   } catch (error) {
-    throw new Error(`Failed to generate assignment: ${error.message}`);
+    throw new Error(`Failed to generate assignment: ${(error as Error).message}`);
   }
 }
 
@@ -408,6 +408,6 @@ Return the response as JSON with "feedback", "suggestions" (array of strings), a
       score: Math.max(0, Math.min(100, result.score || 0))
     };
   } catch (error) {
-    throw new Error(`Failed to analyze code: ${error.message}`);
+    throw new Error(`Failed to analyze code: ${(error as Error).message}`);
   }
 }

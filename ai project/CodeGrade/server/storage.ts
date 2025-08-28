@@ -24,14 +24,14 @@ export interface IStorage {
   createSubmission(submission: InsertSubmission): Promise<Submission>;
   updateSubmission(id: string, submission: Partial<Submission>): Promise<Submission | undefined>;
   
-  sessionStore: session.SessionStore;
+  sessionStore: session.Store;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
   private assignments: Map<string, Assignment>;
   private submissions: Map<string, Submission>;
-  sessionStore: session.SessionStore;
+  sessionStore: session.Store;
 
   constructor() {
     this.users = new Map();
@@ -91,6 +91,9 @@ export class MemStorage implements IStorage {
       ...insertAssignment,
       id,
       createdAt: new Date(),
+      timeLimit: insertAssignment.timeLimit ?? null,
+      dueDate: insertAssignment.dueDate ?? null,
+      isActive: insertAssignment.isActive ?? true,
     };
     this.assignments.set(id, assignment);
     return assignment;
@@ -133,6 +136,9 @@ export class MemStorage implements IStorage {
       ...insertSubmission,
       id,
       submittedAt: new Date(),
+      status: insertSubmission.status ?? "pending",
+      testResults: insertSubmission.testResults ?? null,
+      score: insertSubmission.score ?? null,
     };
     this.submissions.set(id, submission);
     return submission;
