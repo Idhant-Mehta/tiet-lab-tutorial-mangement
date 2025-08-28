@@ -158,14 +158,14 @@ export function registerRoutes(app: Express): Server {
           ];
         } else {
           // Simulate passing most test cases
-          testResults = problem.testCases?.map((_, index) => ({
+          testResults = problem.testCases?.map((_: any, index: number) => ({
             testCase: index + 1,
             passed: Math.random() > 0.2, // 80% pass rate simulation
             output: problem.sampleOutput,
             expected: problem.sampleOutput
           })) || [];
           
-          const passedCount = testResults.filter(r => r.passed).length;
+          const passedCount = testResults.filter((r: any) => r.passed).length;
           score = Math.round((passedCount / testResults.length) * 100);
           status = score >= 60 ? "passed" : "failed";
         }

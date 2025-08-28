@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FileText, Trophy, Clock, HelpCircle, CheckCircle, Calendar, ArrowLeft } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Assignment, Problem } from "@shared/schema";
+import { Assignment, Problem, StudentStats } from "@shared/schema";
 
 export default function StudentDashboard() {
   const { user } = useAuth();
@@ -18,7 +18,7 @@ export default function StudentDashboard() {
   const [selectedProblem, setSelectedProblem] = useState<Problem | null>(null);
   const [problemIndex, setProblemIndex] = useState(0);
 
-  const { data: stats, isLoading: statsLoading } = useQuery({
+  const { data: stats, isLoading: statsLoading } = useQuery<StudentStats>({
     queryKey: ["/api/stats/student"],
   });
 

@@ -82,3 +82,17 @@ export const problemSchema = z.object({
 });
 
 export type Problem = z.infer<typeof problemSchema>;
+
+// Statistics types
+export type StudentStats = {
+  completed: number;
+  inProgress: number;
+  averageScore: number;
+};
+
+export type TeacherStats = {
+  totalAssignments: number;
+  activeStudents: number;
+  totalSubmissions: number;
+  averageScore: number;
+};
